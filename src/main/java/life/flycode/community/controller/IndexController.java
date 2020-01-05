@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @version:1.0
  */
 @Controller
-public class GreetingController {
+public class IndexController {
     @GetMapping("/")
     public String greeting() {
         return "index";
