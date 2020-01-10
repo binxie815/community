@@ -4,6 +4,7 @@ CREATE TABLE USER
     ACCOUNT_ID varchar(100),
     NAME varchar(100),
     TOKEN varchar(36),
+    BIO varchar(256),
     GMT_CREATE bigint,
-    GMT_MODIFIED bigint
-);
+    GMT_MODIFIED bigint,
+)
