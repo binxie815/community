@@ -1,6 +1,7 @@
 ## 资源
 [github授权登API](https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/)
 ## 工具
+[lombok](https://projectlombok.org/features/all)，需要idea工具下载lombok插件
 ##脚本
 ```sql
 CREATE TABLE USER
