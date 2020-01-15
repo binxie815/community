@@ -1,5 +1,6 @@
 package life.flycode.community.serivce;
 
+import life.flycode.community.dto.PageInfoDATO;
 import life.flycode.community.dto.QuestionDTO;
 import life.flycode.community.mapper.QuestionMapper;
 import life.flycode.community.mapper.UserMapper;
@@ -24,10 +25,11 @@ public class QuestionService {
     @Autowired
     private QuestionMapper questionMapper;
 
-    public List<QuestionDTO> list(Integer page, Integer size) {
-        page = size * (page -1);
-        List<Question> questionList = questionMapper.list(page,size);
+    public PageInfoDATO list(Integer page, Integer size) {
+        int offpage = size * (page -1);
+        List<Question> questionList = questionMapper.list(offpage,size);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
+        PageInfoDATO pageInfoDATO = new PageInfoDATO();
         for (Question question : questionList) {
             User user = userMapper.findById(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
@@ -35,6 +37,9 @@ public class QuestionService {
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
-        return questionDTOList;
+        pageInfoDATO.setQuestions(questionDTOList);
+        Integer totalCount = questionMapper.count();
+        pageInfoDATO.setPagination(totalCount,page,size);
+        return pageInfoDATO;
     }
 }

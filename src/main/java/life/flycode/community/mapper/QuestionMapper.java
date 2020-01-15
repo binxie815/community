@@ -21,4 +21,7 @@ public interface QuestionMapper {
 
     @Select("SELECT * FROM QUESTION limit #{page},#{size}")
     List<Question> list(@Param("page") Integer page,@Param("size") Integer size);
+
+    @Select("SELECT count(ID) from QUESTION")
+    Integer count();
 }
