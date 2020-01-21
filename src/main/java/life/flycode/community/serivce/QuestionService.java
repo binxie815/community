@@ -42,4 +42,22 @@ public class QuestionService {
         pageInfoDATO.setPagination(totalCount,page,size);
         return pageInfoDATO;
     }
+
+    public PageInfoDATO listByUserId(Integer userId, Integer page, Integer size) {
+        int offpage = size * (page -1);
+        List<Question> questionList = questionMapper.listByUserId(userId,offpage,size);
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
+        PageInfoDATO pageInfoDATO = new PageInfoDATO();
+        for (Question question : questionList) {
+            User user = userMapper.findById(question.getCreator());
+            QuestionDTO questionDTO = new QuestionDTO();
+            questionDTO.setQuestion(question);
+            questionDTO.setUser(user);
+            questionDTOList.add(questionDTO);
+        }
+        pageInfoDATO.setQuestions(questionDTOList);
+        Integer totalCount = questionMapper.countByUserId(userId);
+        pageInfoDATO.setPagination(totalCount,page,size);
+        return pageInfoDATO;
+    }
 }
